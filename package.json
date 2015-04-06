@@ -1,0 +1,26 @@
+{
+  "name": "cubekit-l10n",
+  "version": "0.1.0",
+  "description": "Dojo localization",
+  "main": "init.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "intern": "^2.2.2",
+    "sinon": "^1.12.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node_modules/.bin/intern-client config=tests/intern"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:it-aces/cubekit-l10n.git"
+  },
+  "keywords": [
+    "cubekit"
+  ],
+  "author": "",
+  "license": "Commercial"
+}
