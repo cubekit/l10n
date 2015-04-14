@@ -2,7 +2,7 @@
 
 ## Usage
 
-```
+```javascript
 var lang = new Lang({
     messages: {
         greeting: 'Hello',
@@ -11,4 +11,5 @@ var lang = new Lang({
 })
 lang.get('messages.greeting')
 lang.choice('cucumbers', 3)
+lang.choice('товар|товара|товаров', 4)
 ```

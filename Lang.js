@@ -1,7 +1,10 @@
 define([
     'lodash',
-    'dojo/_base/declare'
-], function (_, declare) {
+    'dojo/_base/declare',
+    'Plurals'
+], function (_, declare, Plurals) {
+
+    var plurals = new Plurals()
 
     var Lang = declare([], {
 
@@ -36,14 +39,6 @@ define([
          */
         choice: function(key, number, replace, locale) {
             var line = this.get(key)
-
-            // todo: place to config
-            /*if (locale == 'en') {
-                this._plurals = 2
-            } else if (locale == 'ru') {
-                this._plurals = 3
-            }*/
-
             return this._makeReplacements(line, number)
         },
 
@@ -97,6 +92,7 @@ define([
                 matched = null,
                 result = null
 
+            // complex translation message
             _.find(lines, function(line) {
                 // parse single number
                 if (matched = line.match(/^{(\d+)}\s(.+)$/)) {
@@ -116,7 +112,10 @@ define([
                 }
             })
 
-            return result
+            // basic translation message
+            var form = plurals.getForm('ru', number)
+
+            return result || lines[form]
         },
 
         /**
