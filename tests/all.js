@@ -1,4 +1,4 @@
-define([], function(){
+define(['./LangTest'], function(){
 
     // Disable the displaying of code coverage
 
