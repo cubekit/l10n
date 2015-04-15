@@ -11,6 +11,7 @@ define([
         constructor: function(params) {
             this._lang = params
             this._parsed = {}
+            this._locale = 'en'
         },
 
         /**
@@ -33,12 +34,14 @@ define([
          *
          * @param   {string} key
          * @param   {number} number
-         * @param   {array}  replace
          * @param   {string} locale
          * @returns {string}
          */
-        choice: function(key, number, replace, locale) {
+        choice: function(key, number, locale) {
             var line = this.get(key)
+            if (locale) {
+                this._locale = locale
+            }
             return this._makeReplacements(line, number)
         },
 
@@ -113,7 +116,7 @@ define([
             })
 
             // basic translation message
-            var form = plurals.getForm('ru', number)
+            var form = plurals.getForm(this._locale, number)
 
             return result || lines[form]
         },
@@ -126,7 +129,9 @@ define([
         /**
          * @type {object}
          */
-        _parsed: null
+        _parsed: null,
+
+        _locale: null
     })
 
     return Lang

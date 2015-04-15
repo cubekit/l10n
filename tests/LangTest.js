@@ -21,7 +21,8 @@ define([
         assert.equal(lang.get('warning'), 'Alert')
         assert.equal(lang.get('text'), 'text')
 
-        assert.equal(lang.choice('товар|товара|товаров', 4), 'товара')
+        assert.equal(lang.choice('apple|apples', 100), 'apples')
+        assert.equal(lang.choice('товар|товара|товаров', 4, 'ru'), 'товара')
 
         assert.equal(lang.choice('apples', 1), 'There is one apple')
         assert.equal(lang.choice('apples', 5), 'There are many apples')
