@@ -1,3 +1,12 @@
+import Lang from './Lang.js'
+
+describe('Lang', function () {
+    it('Should have a test that works with Chai "expect".', () => {
+        expect(true).to.be.true;
+    });
+})
+
+/*
 define([
     'intern!tdd',
     'intern/chai!assert',
@@ -63,4 +72,4 @@ define([
             assert.equal(lang.choice('items', 100), 'A bunch')
         })
     })
-})
+})*/
