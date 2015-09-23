@@ -1,4 +1,4 @@
-import Lang from './Lang.js'
+// import Lang from './Lang.js'
 
 describe('Lang', function () {
     it('Should have a test that works with Chai "expect".', () => {
