@@ -1,53 +1,48 @@
 import _ from 'lodash'
 import Plurals from './Plurals.js'
 
-let plurals = new Plurals()
-
 export default class Lang {
 
     constructor(config) {
         this._lang = config
         this._parsed = {}
         this._locale = 'en'
+        this._plurals = new Plurals()
     }
 
     /**
-     *
-     * @param   {string} key
-     * @returns {string|null}
+     * @param   {String} key
+     * @returns {String|null}
      */
     'get'(key) {
         if (!key) {
             return key
         }
 
-        let parsed = this._parse(key),
-            line = this._getLine(parsed)
+        const parsed = this._parse(key)
 
-        return line || key
+        return this._getLine(parsed) || key
     }
 
     /**
      *
-     * @param   {string} key
-     * @param   {number} number
-     * @param   {string} locale
-     * @returns {string}
+     * @param   {String} key
+     * @param   {Number} number
+     * @param   {String} locale
+     * @returns {String}
      */
     choice(key, number, locale) {
-        let line = this.get(key)
-
         if (locale) {
             this._locale = locale
         }
 
-        return this._makeReplacements(line, number)
+        return this._makeReplacements(this.get(key), number)
     }
 
     /**
      *
-     * @param   {array} parsed
-     * @returns {string}
+     * @param   {Array} parsed
+     * @returns {String}
      * @private
      */
     _getLine(parsed) {
@@ -64,8 +59,8 @@ export default class Lang {
 
     /**
      *
-     * @param   {string} key
-     * @returns {array}
+     * @param   {String} key
+     * @returns {Array}
      * @private
      */
     _parse(key) {
@@ -73,41 +68,50 @@ export default class Lang {
             return this._parsed[key]
         }
 
-        var segments = key.split('.'),
-            group = segments[0],
-            parsed = []
+        const segments = key.split('.')
+        const group = segments[0]
+        let parsed = []
 
         if (segments.length == 1) {
             parsed = [ group, null ]
         } else {
-            let rest = (segments.slice(1)).join('.')
+            const rest = (segments.slice(1)).join('.')
 
             parsed = [ group, rest ]
         }
 
-        return this._parsed[key] = parsed
+        this._parsed[key] = parsed
+        return this._parsed[key]
     }
 
     _makeReplacements(line, number) {
 
-        let lines = line.split('|'),
-            matched = null,
+        // basic translation message
+        const form = this._plurals.getForm(this._locale, number)
+        const lines = line.split('|')
+
+        let matched = null,
             result = null
 
         // complex translation message
-        _.find(lines, function(line) {
+        _.find(lines, function(item) {
 
             // parse single number
-            if (matched = line.match(/^{(\d+)}\s(.+)$/)) {
+            matched = item.match(/^{(\d+)}\s(.+)$/)
+
+            if (matched) {
                 if (number == matched[1]) {
                     result = matched[2]
                     return true
                 }
-            } else if (matched = line.match(/^\[(.+)\]\s(.+)$/)) {
+            }
 
-                // parse range
-                let range = matched[1],
-                    array = range.split(',').map(Number)
+            // parse range
+            matched = item.match(/^\[(.+)\]\s(.+)$/)
+
+            if (matched) {
+                const range = matched[1]
+                const array = range.split(',').map(Number)
 
                 if (array[0] <= number && number <= array[1]) {
                     result = matched[2]
@@ -115,9 +119,6 @@ export default class Lang {
                 }
             }
         })
-
-        // basic translation message
-        let form = plurals.getForm(this._locale, number)
 
         return result || lines[form]
     }

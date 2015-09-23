@@ -1,7 +1,7 @@
 export default class Plurals {
 
     constructor() {
-        this.langMappings = {
+        this._langMappings = {
             ru: 'Russian',
             en: 'English'
         }
@@ -9,12 +9,13 @@ export default class Plurals {
 
     /**
      *
-     * @param {string} locale
-     * @param {number} number
-     * @returns {number}
+     * @param {String} locale
+     * @param {Number} number
+     * @returns {Number}
      */
     getForm(locale, number) {
-        let lang = this.langMappings[locale]
+        const lang = this._langMappings[locale]
+
         return this['get' + lang + 'PluralForm'](number)
     }
 
@@ -22,8 +23,8 @@ export default class Plurals {
      * Get index of Russian plural choices.
      * Russian has three plural forms.
      *
-     * @param number
-     * @returns {number} index
+     * @param {Number} number
+     * @returns {Number} index
      */
     getRussianPluralForm(number) {
         return ((number % 10 == 1) && (number % 100 != 11))
