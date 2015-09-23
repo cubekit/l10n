@@ -1,138 +1,124 @@
-define([
-    'lodash',
-    'dojo/_base/declare',
-    'Plurals'
-], function (_, declare, Plurals) {
+import _ from 'lodash'
+import Plurals from './Plurals.js'
 
-    var plurals = new Plurals()
+let plurals = new Plurals()
 
-    var Lang = declare([], {
+export default class Lang {
 
-        constructor: function(params) {
-            this._lang = params
-            this._parsed = {}
-            this._locale = 'en'
-        },
+    constructor(config) {
+        this._lang = config
+        this._parsed = {}
+        this._locale = 'en'
+    }
 
-        /**
-         *
-         * @param   {string} key
-         * @returns {string|null}
-         */
-        'get': function(key) {
-            if (!key) {
-                return key
-            }
+    /**
+     *
+     * @param   {string} key
+     * @returns {string|null}
+     */
+    'get'(key) {
+        if (!key) {
+            return key
+        }
 
-            var parsed = this._parse(key),
-                line = this._getLine(parsed)
+        let parsed = this._parse(key),
+            line = this._getLine(parsed)
 
-            return line || key
-        },
+        return line || key
+    }
 
-        /**
-         *
-         * @param   {string} key
-         * @param   {number} number
-         * @param   {string} locale
-         * @returns {string}
-         */
-        choice: function(key, number, locale) {
-            var line = this.get(key)
-            if (locale) {
-                this._locale = locale
-            }
-            return this._makeReplacements(line, number)
-        },
+    /**
+     *
+     * @param   {string} key
+     * @param   {number} number
+     * @param   {string} locale
+     * @returns {string}
+     */
+    choice(key, number, locale) {
+        let line = this.get(key)
 
-        /**
-         *
-         * @param   {array} parsed
-         * @returns {string}
-         * @private
-         */
-        _getLine: function(parsed) {
-            var group = parsed[0],
-                item = parsed[1],
-                line = null
+        if (locale) {
+            this._locale = locale
+        }
 
-            if (!this._lang[group]) {
-                return line
-            }
+        return this._makeReplacements(line, number)
+    }
 
-            return item? this._lang[group][item] : this._lang[group]
-        },
+    /**
+     *
+     * @param   {array} parsed
+     * @returns {string}
+     * @private
+     */
+    _getLine(parsed) {
+        const group = parsed[0]
+        const item = parsed[1]
+        const line = null
 
-        /**
-         *
-         * @param   {string} key
-         * @returns {array}
-         * @private
-         */
-        _parse: function(key) {
-            if (this._parsed[key]) {
-                return this._parsed[key]
-            }
+        if (!this._lang[group]) {
+            return line
+        }
 
-            var segments = key.split('.'),
-                group = segments[0],
-                parsed = []
+        return item ? this._lang[group][item] : this._lang[group]
+    }
 
-            if (segments.length == 1) {
-                parsed = [ group, null ]
-            } else {
-                var rest = (segments.slice(1)).join('.')
-                parsed = [ group, rest ]
-            }
+    /**
+     *
+     * @param   {string} key
+     * @returns {array}
+     * @private
+     */
+    _parse(key) {
+        if (this._parsed[key]) {
+            return this._parsed[key]
+        }
 
-            return this._parsed[key] = parsed
-        },
+        var segments = key.split('.'),
+            group = segments[0],
+            parsed = []
 
-        _makeReplacements: function(line, number) {
-            // todo: replace with placeholders
+        if (segments.length == 1) {
+            parsed = [ group, null ]
+        } else {
+            let rest = (segments.slice(1)).join('.')
 
-            var lines = line.split('|'),
-                matched = null,
-                result = null
+            parsed = [ group, rest ]
+        }
 
-            // complex translation message
-            _.find(lines, function(line) {
-                // parse single number
-                if (matched = line.match(/^{(\d+)}\s(.+)$/)) {
-                    if (number == matched[1]) {
-                        result = matched[2]
-                        return true
-                    }
-                } else if (matched = line.match(/^\[(.+)\]\s(.+)$/)) {
-                    // parse range
-                    var range = matched[1],
-                        array = range.split(',').map(Number)
+        return this._parsed[key] = parsed
+    }
 
-                    if (array[0] <= number && number <= array[1]) {
-                        result = matched[2]
-                        return true
-                    }
+    _makeReplacements(line, number) {
+
+        let lines = line.split('|'),
+            matched = null,
+            result = null
+
+        // complex translation message
+        _.find(lines, function(line) {
+
+            // parse single number
+            if (matched = line.match(/^{(\d+)}\s(.+)$/)) {
+                if (number == matched[1]) {
+                    result = matched[2]
+                    return true
                 }
-            })
+            } else if (matched = line.match(/^\[(.+)\]\s(.+)$/)) {
 
-            // basic translation message
-            var form = plurals.getForm(this._locale, number)
+                // parse range
+                let range = matched[1],
+                    array = range.split(',').map(Number)
 
-            return result || lines[form]
-        },
+                if (array[0] <= number && number <= array[1]) {
+                    result = matched[2]
+                    return true
+                }
+            }
+        })
 
-        /**
-         * @type {object}
-         */
-        _lang: null,
+        // basic translation message
+        let form = plurals.getForm(this._locale, number)
 
-        /**
-         * @type {object}
-         */
-        _parsed: null,
-
-        _locale: null
-    })
-
-    return Lang
-})
+        return result || lines[form]
+    }
+}
