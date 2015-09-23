@@ -10,8 +10,9 @@ var lang = new Lang({
     }
 })
 
-lang.get('messages.greeting')
-lang.choice('messages.cucumbers', 3)
-lang.choice('orange|oranges', 100)
-lang.choice('товар|товара|товаров', 4, 'ru')
+lang.get('messages.greeting') // Hello
+
+lang.choice('messages.cucumbers', 3) // огурца
+lang.choice('товар|товара|товаров', 4, 'ru') // товара
+lang.choice('orange|oranges', 100, 'en') // oranges
 ```

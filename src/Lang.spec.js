@@ -4,7 +4,8 @@ describe('Lang', function () {
 
     let lang = new Lang({
         messages: {
-            greeting: 'Hello'
+            greeting: 'Hello',
+            cucumbers: '{1} огурец|[2,4] огурца|[5,20] огурцов'
         },
         warning: 'Alert',
         apples: '{1} There is one apple|[2,Infinity] There are many apples',
@@ -57,5 +58,13 @@ describe('Lang', function () {
 
     it('should return plural form of complex translation #3', () => {
         assert.equal(lang.choice('items', 100), 'A bunch')
+    })
+
+    it('should return single form of russian word cucumber', () => {
+        assert.equal(lang.choice('messages.cucumbers', 3), 'огурца')
+    })
+
+    it('should return plural form of english word orange', () => {
+        assert.equal(lang.choice('orange|oranges', 100, 'en'), 'oranges')
     })
 })
