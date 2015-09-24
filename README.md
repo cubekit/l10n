@@ -1,5 +1,9 @@
 # Localization package
 
+## Installation
+
+`npm install git+ssh://git@bitbucket.org:it-aces/cubekit-l10n.git --save`
+
 ## Usage
 
 ```javascript
