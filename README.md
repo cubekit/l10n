@@ -2,11 +2,13 @@
 
 ## Installation
 
-`npm install git+ssh://git@bitbucket.org:it-aces/cubekit-l10n.git --save`
+npm install git+ssh://git@bitbucket.org:it-aces/cubekit-l10n.git --save
 
 ## Usage
 
 ```javascript
+import Lang from 'cubekit-l10n'
+
 var lang = new Lang({
     messages: {
         greeting: 'Hello',

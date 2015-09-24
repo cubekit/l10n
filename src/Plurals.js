@@ -16,7 +16,7 @@ export default class Plurals {
     getForm(locale, number) {
         const lang = this._langMappings[locale]
 
-        return this['get' + lang + 'PluralForm'](number)
+        return this[`get${lang}PluralForm`](number)
     }
 
     /**

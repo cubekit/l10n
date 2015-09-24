@@ -1,1 +1,1 @@
-module.exports = require('./src/Lang');
+module.exports = require('./src/Lang')
