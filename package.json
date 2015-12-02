@@ -45,12 +45,5 @@
   "repository": {
     "type": "git",
     "url": "git@bitbucket.org:it-aces/cubekit-l10n.git"
-  },
-  "files": [
-    "index.js",
-    "karma.conf.js",
-    "karma.entry.js",
-    "webpack.config.js",
-    "README.md"
-  ]
+  }
 }
