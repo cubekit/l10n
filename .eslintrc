@@ -113,9 +113,6 @@
     "no-use-before-define": 2,
 
     "array-bracket-spacing": 0,
-    "indent": [2, 4, {
-      "SwitchCase": 1
-    }],
     "brace-style": 1,
     "camelcase": 0,
     "comma-spacing": 1,
