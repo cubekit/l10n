@@ -50,6 +50,7 @@
     "index.js",
     "karma.conf.js",
     "karma.entry.js",
-    "webpack.config.js"
+    "webpack.config.js",
+    "README.md"
   ]
 }
