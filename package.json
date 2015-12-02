@@ -1,6 +1,6 @@
 {
   "name": "cubekit-l10n",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Localization",
   "main": "index.js",
   "scripts": {
@@ -45,5 +45,11 @@
   "repository": {
     "type": "git",
     "url": "git@bitbucket.org:it-aces/cubekit-l10n.git"
-  }
+  },
+  "files": [
+    "index.js",
+    "karma.conf.js",
+    "karma.entry.js",
+    "webpack.config.js"
+  ]
 }
