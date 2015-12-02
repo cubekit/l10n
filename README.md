@@ -1,9 +1,5 @@
 # Localization package
 
-## Installation
-
-npm install git+ssh://git@bitbucket.org:it-aces/cubekit-l10n.git --save
-
 ## Usage
 
 ```javascript
@@ -22,3 +18,7 @@ lang.choice('messages.cucumbers', 3) // огурца
 lang.choice('товар|товара|товаров', 4, 'ru') // товара
 lang.choice('orange|oranges', 100, 'en') // oranges
 ```
+
+## License
+
+[MIT](http://www.opensource.org/licenses/mit-license.php)
