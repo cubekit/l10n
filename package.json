@@ -43,5 +43,8 @@
   "repository": {
     "type": "git",
     "url": "git@bitbucket.org:it-aces/cubekit-l10n.git"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1"
   }
 }
