@@ -1,6 +1,6 @@
 {
   "name": "cubekit-l10n",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "Localization",
   "main": "index.js",
   "scripts": {
